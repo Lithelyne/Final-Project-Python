@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='my_style.css') }}">
+    <!-- <img src="{{ url_for('static', filename='my_img.png') }}"> -->
+    <title>Project Cookbook</title>
+</head>
+
+<body style="padding:20px">
+    
+    <div class="nav d-flex justify-content-between mb-3 border-bottom border-dark">
+        <div class="left">
+            <h1 style="color:orange">Feeling Hungry?</h1>
+        </div>
+        <div class="right">
+            <a href="/mycookbook" style="text-decoration:none;color:orange"><b>My Cookbook</b></a> | <a href="search"
+                style="text-decoration:none;color:orange"><b>Search</b></a> | <a href="/logout"
+                style="text-decoration:none;color:orange"><b>Logout</b></a>
+        </div>
+    </div>
+    <div>
+        <div class="col-md-6">
+            <h3>{{data.meals[0]['strMeal']}}</h3>
+        </div>
+        <div class="col-md-6">
+            <img src="{{data.meals[0]['strMealThumb']}}" class="img-fluid" style="max-height: 200px; max-width: 200px;">
+        </div>
+
+    </div>
+
+    <br>
+    <h5>Type: {{data.meals[0]['strCategory']}}</h5>
+    <br>
+    <div class="d-flex">
+        <div style="padding-right:10%">
+            <h4>Ingredients</h4>
+            <ol>
+                {% for ingredient in ingredients %}
+        <!-- This if statement checks to see if an ingredient is present, if so it will list it -->
+                    {% if ingredient %}
+                        <li>{{ ingredient }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+        </div>
+        
+    </div>
+    <br>
+    <h4>Directions</h4>
+    <p>{{data.meals[0]['strInstructions']}}
+    </p>
+    
+
+
+    <button onclick=window.location.href="/save_random" class="btn" style="width:125px;background-color:orange;margin-right:5px;">Save Recipe</button>
+    <button onclick=window.location.href="/random" class="btn" style="width:150px;background-color:orange;margin-right:5px;"><b>Try Again</b></button>
+
+</body>
+
+</html>

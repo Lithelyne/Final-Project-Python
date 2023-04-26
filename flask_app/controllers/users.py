@@ -31,7 +31,7 @@ def register():
 
     #log them in
     session['user_id'] = user
-    session['first_name'] = request.form['first_name']
+    session['user_name'] = request.form['user_name']
 
     return redirect('/mycookbook')
 
@@ -50,8 +50,7 @@ def login():
         return redirect('/')
         #log them in
     session['user_id']=user.id
-    session['first_name']=user.first_name
-    session['last_name']=user.last_name
+    session['user_name']=user.user_name
     
     return redirect('/mycookbook')
 

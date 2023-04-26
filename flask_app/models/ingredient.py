@@ -7,15 +7,17 @@ class Ingredient:
 
     def __init__(self,data:dict):
         self.id = data['id']
-        self.name = data['name']
-        self.description = data['description']
-        self.instructions = data['instructions']
-        self.under_30 = data['under_30']
-        self.date_made = data['date_made']
-        self.user_id = data['user_id']
+        self.text = data['text']
+        self.recipe_id = data['recipe_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.user = data['first_name']
+
+    #CREATE
+    @classmethod
+    def save_ingredient(cls, **kwargs):
+        data = kwargs
+        query = "INSERT INTO ingredients (text, recipe_id) VALUES (%(text)s, %(recipe_id)s);"
+        return connectToMySQL(DATABASE).query_db(query, data)
 
     #READ ALL
     @classmethod
@@ -27,16 +29,11 @@ class Ingredient:
             ingredients.append(cls(ingredient))
         return ingredients
 
-    #CREATE
-    @classmethod
-    def save(cls, data):
-        query = "INSERT INTO ingredients (name, description, instructions, under_30, date_made, user_id) VALUES (%(name)s,%(description)s,%(instructions)s,%(under_30)s,%(date_made)s,%(user_id)s);"
-        return connectToMySQL(DATABASE).query_db(query, data)
     
     # UPDATE
     @classmethod
     def update(cls,data):
-        query = "UPDATE ingredients SET name=%(name)s, description=%(description)s, instructions=%(instructions)s, under_30=%(under_30)s, date_made=%(date_made)s WHERE id = %(id)s;"
+        query = "UPDATE ingredients SET text=%(text)s, description=%(description)s, instructions=%(instructions)s, under_30=%(under_30)s, date_made=%(date_made)s WHERE id = %(id)s;"
         return connectToMySQL(DATABASE).query_db(query,data)
     
     #DELETE
@@ -57,7 +54,7 @@ class Ingredient:
         for ingredient in results:
             ingredient_data = {
                 "id":ingredient["id"],
-                "name":ingredient["name"],
+                "text":ingredient["text"],
                 "description":ingredient["description"],
                 "instructions":ingredient["instructions"],
                 "under_30":ingredient["under_30"],

@@ -15,7 +15,7 @@
             <h1 style="color:orange">My Test Kitchen</h1>
         </div>
         <div class="right">
-            <a href="/mycookbook" style="text-decoration:none;color:orange"><b>My Cookbook</b></a>  |  <a href="#" style="text-decoration:none;color:orange"><b>Search</b></a>  |  <a href="/logout" style="text-decoration:none;color:orange"><b>Logout</b></a>
+            <a href="/mycookbook" style="text-decoration:none;color:orange"><b>My Cookbook</b></a>  |  <a href="/search" style="text-decoration:none;color:orange"><b>Search</b></a>  |  <a href="/logout" style="text-decoration:none;color:orange"><b>Logout</b></a>
         </div>
     </div>
 
@@ -34,16 +34,16 @@
         
     </div>
         <!-- {% for recipe in recipes %} -->
-            <a href="#" style="text-decoration:none;color:black">
+            <a href="/testkitchen/recipe/{{recipe.id}}" style="text-decoration:none;color:black">
                 <div class="row d-flex border-bottom">
                 <div class="col d-flex">
                 <p class="col"><b>{{recipe.name}}</b></p>
-                <p class="col text-center">Dessert</p>
-                <p class="col text-center">Cake</p>
-                <p class="col text-center">Prep + Cook</p>
-                <p class="col text-center">May 2, 2022</p>
+                <p class="col text-center">{{recipe.type}}</p>
+                <p class="col text-center">{{recipe.sub_type}}</p>
+                <p class="col text-center">{{recipe.prep_time + recipe.cook_time}}</p>
+                <p class="col text-center">{{recipe.updated_at}}</p>
                 </div>
-                <p class="col-9 col-lg-4">Description of the item will go here. Try not to get too carried away.</p>
+                <p class="col-9 col-lg-4">{{recipe.description}}</p>
                 
             </div>
         </a>

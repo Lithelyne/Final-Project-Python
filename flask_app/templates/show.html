@@ -15,40 +15,35 @@
             <h1 style="color:orange">Project Cookbook</h1>
         </div>
         <div class="right">
-            <a href="/mycookbook" style="text-decoration:none;color:orange"><b>My Cookbook</b></a>  |  <a href="#" style="text-decoration:none;color:orange"><b>Test Kitchen</b></a>  |  <a href="#" style="text-decoration:none;color:orange"><b>Search</b></a>  |  <a href="/logout" style="text-decoration:none;color:orange"><b>Logout</b></a>
+            <a href="/mycookbook" style="text-decoration:none;color:orange"><b>My Cookbook</b></a>  |  <a href="/testkitchen" style="text-decoration:none;color:orange"><b>Test Kitchen</b></a>  |  <a href="/search" style="text-decoration:none;color:orange"><b>Search</b></a>  |  <a href="/logout" style="text-decoration:none;color:orange"><b>Logout</b></a>
         </div>
     </div>
 
     <h3>Recipe Name</h3>
-    <p>created by: monkeybottoms</p>
+    <p>created by: {{recipe.user_name}}</p>
     <div class="d-flex mb-3">
         <button style="width:150px;background-color:orange;margin-right:5px;">Save to my cookbook</button>
         <button style="width:150px;background-color:orange;margin-left:5px">Send to my test kitchen</button>
 
     </div>
-    <h5>Total time to prepare: 1 hour 15 minutes</h5>
-    <p><i>Prep time: 30 mins  Cook time: 45 mins</i></p>
+    <h5>Total time to prepare: {{recipe.prep_time + recipe.cook_time}}</h5>
+    <p><i>Prep time: {{recipe.prep_time}} minutes<br>Cook time: {{recipe.cook_time}} minutes</i></p>
     <br>
-    <h5>Type</h5>
-    <h5>Sub-type</h5>
+    <h5>{{recipe.type}}</h5>
+    <h5>{{recipe.sub_type}}</h5>
     <br>
-    <p>Description of the dish that does not exceed 255 characters, I think. We don't want to get too carried away. Don't write a book or anything. Just let us know what the recipe's like. Be fairly consice. Is it juicy? Make it for Thanksgiving? Just describe..</p>
+    <p>{{recipe.description}}</p>
     <br>
     <h4>Ingredients</h4>
+    
     <ul>
-        <li>Ingredient 1</li>
-        <li>Ingredient 2</li>
-        <li>Ingredient 3</li>
-        <li>Ingredient 4</li>
-        <li>Ingredient 5</li>
-        <li>Ingredient 6</li>
+        {% for ingredient in recipe.ingredients %}
+        <li>{{ingredient.name}}</li>
+        {% endfor %}
     </ul>
     <br>
-    <h4>Directions</h4>
-    <p>1. Get directions from back-end.<br>
-        2. Send directions from back end to front end. <br>
-        3. Display the directions using jinja tags. <br>
-        4. Really hope that it works.
+    <h4>Instructions</h4>
+    <p>{{recipe.instructions}}
     </p>
 
 </body>

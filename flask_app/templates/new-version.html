@@ -29,10 +29,10 @@
     {% endwith %}
     <form action="/create" method="post">
         <input type="hidden" name="user_id" value="{{session.user_id}}">
-        <input type="hidden" name="test" value=0>
+        <input type="hidden" name="test" value=1>
         <input type="hidden" name="notes" value="">
-        <input type="hidden" name="open" value=1>
-        <input type="hidden" name="original" value=0>
+        <input type="hidden" name="open" value=0>
+        <input type="hidden" name="original" value=>
         <input type="hidden" name="version" value=1>
 
 
@@ -76,9 +76,13 @@
             <h4>Instructions:</h4>
             <textarea name="instructions" rows="10" cols="40"></textarea>
         </div>
+        <div class="form-control">
+            <h4>Notes:</h4>
+            <textarea name="notes" rows="10" cols="40"></textarea>
+        </div>
 
 
-        <input type="submit" value="Add Recipe">
+        <input type="submit" value="Add New Version">
     </form>
 </body>
 

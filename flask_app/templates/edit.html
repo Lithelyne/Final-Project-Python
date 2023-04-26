@@ -9,7 +9,14 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <title>Document</title>
 </head>
-
+<div class="nav d-flex justify-content-between mb-3 border-bottom border-dark">
+    <div class="left">
+        <h1 style="color:orange">My Cookbook</h1>
+    </div>
+    <div class="right">
+        <a href="/mycookbook" style="text-decoration:none;color:orange"><b>My Cookbook</b></a>  |  <a href="/testkitchen" style="text-decoration:none;color:orange"><b>Test Kitchen</b></a>  |  <a href="/logout" style="text-decoration:none;color:orange"><b>Logout</b></a>
+    </div>
+</div>
 <body>
     <h1>Edit Your Recipe</h1>
     {% with messages = get_flashed_messages() %} <!-- declare a variable called messages -->
@@ -19,76 +26,51 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-    <form action="/create" method="post">
+    <form action="/recipes/update/{{recipe.id}}" method="post">
         <input type="hidden" name="user_id" value="{{session.user_id}}">
-
+        <input type="hidden" name="id" value="{{recipe.id}}">
         <div class="form-control">
-            Recipe Title: <input type="text" name="title" id="">
+            Recipe Name: <input type="text" name="name" value="{{recipe.name}}">
         </div>
         <div class="form-control">
-            Cook Time: <input type="text" name="cook_time" id="">
+            Prep Time: <input type="text" name="prep_time" value="{{recipe.prep_time}}">
         </div>
         <div class="form-control">
-            Prep Time: <input type="text" name="prep_time" id="">
+            Cook Time: <input type="text" name="cook_time" value="{{recipe.cook_time}}">
         </div>
         <div class="form-control">
-            Description: <input type="text" name="description">
+            Type: <input type="text" name="type" value="{{recipe.type}}">
+        </div>
+        <div class="form-control">
+            Sub-type: <input type="text" name="sub_type" value="{{recipe.sub_type}}">
+        </div>
+        <div class="form-control">
+            Description: <input type="text" name="description" value="{{recipe.description}}">
         </div>
         <div class="form-control" id="ingredients-section">
             <div id="ingredients_container">
                 <label>Ingredients:</label>
+                {% for ingredient in recipe.ingredients %}
+                    
                 <div class="ingredients_row">
-                    <input type="text" name="ingredients" class="ingredients_input">
-                    <input type="text" name="ingredient_quantity" class="ingredient_quantity_input">
-                    <select name="ingredient_measurement" class="ingredient-measurement-select">
-                        <option value="none">--Select--</option>
-                        <option value="tsp">tsp</option>
-                        <option value="tbsp">tbsp</option>
-                        <option value="cup">cup</option>
-                        <option value="oz">oz</option>
-                        <option value="lb">lb</option>
-                    </select>
+                    <input type="text" name="ingredients" class="ingredients_input" value="{{ingredient.text}}">
                     <button type="button" class="remove_ingredients_row">X</button>
                 </div>
-                <div class="ingredients_row">
-                    <input type="text" name="ingredients" class="ingredients_input">
-                    <input type="text" name="ingredient_quantity" class="ingredient-quantity_input">
-                    <select name="ingredient_measurement" class="ingredient_measurement_select">
-                        <option value="none">--Select--</option>
-                        <option value="tsp">tsp</option>
-                        <option value="tbsp">tbsp</option>
-                        <option value="cup">cup</option>
-                        <option value="oz">oz</option>
-                        <option value="lb">lb</option>
-                    </select>
-                    <button type="button" class="remove_ingredients_row">X</button>
-                </div>
-                <div class="ingredients_row">
-                    <input type="text" name="ingredients" class="ingredients_input">
-                    <input type="text" name="ingredient_quantity" class="ingredient-quantity_input">
-                    <select name="ingredient_measurement" class="ingredient_measurement_select">
-                        <option value="none">--Select--</option>
-                        <option value="tsp">tsp</option>
-                        <option value="tbsp">tbsp</option>
-                        <option value="cup">cup</option>
-                        <option value="oz">oz</option>
-                        <option value="lb">lb</option>
-                    </select>
-                    <button type="button" class="remove_ingredients_row">X</button>
-                </div>
-            </div>
-            <button type="button" id="add_ingredients_row">+</button>
-        </div>
+                {% endfor %}
 
         <div class="form-control">
-            Directions:
-            <textarea name="directions">
-
-            </textarea>
+            Instructions:
+            <textarea name="instructions" rows="10" cols="40">{{recipe.instructions}}</textarea>
         </div>
+        {% if recipe.test==1 %}
+        <div class="form-control">
+            Notes:
+            <textarea name="notes"  rows="10" cols="40" value="{{recipe.notes}}">{{recipe.notes}}</textarea>
+        </div>
+        {% endif %}
 
 
-        <input type="submit" value="Add Recipe">
+        <input type="submit" value="Update Recipe">
     </form>
 </body>
 
