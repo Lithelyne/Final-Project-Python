@@ -2,6 +2,7 @@ from flask_app import app, render_template, redirect, request, session, flash, b
 from flask_app.models.recipe import Recipe
 from flask_app.models.ingredient import Ingredient
 from pprint import pprint
+import requests
 
 
 
@@ -14,11 +15,13 @@ def get_all_recipes():
     return render_template('dashboard.html', recipes = recipes)
 
 #SEARCH PAGE
-@app.route('/search')
-def load_search():
+@app.route('/search/<letter>')
+def load_search(letter):
     if 'user_id' not in session:
         return redirect('/logout')
-    return render_template('search.html')
+    data = requests.get(f"https://www.themealdb.com/api/json/v1/1/search.php?f={letter}").json()
+    pprint(data)
+    return render_template('search.html', data=data)
 
 @app.route('/testkitchen')
 def test_board():
