@@ -58,18 +58,20 @@
                 <label><h4>Ingredients:</h4></label>
                 <div class="ingredients_row">
                     <input type="text" name="ingredients" class="ingredients_input">
-                    <button type="button" class="remove_ingredients_row">X</button>
+                    <button type="button" class="btn btn-warning text-dark remove_ingredients_row">X</button>
                 </div>
+                
                 <div class="ingredients_row">
                     <input type="text" name="ingredients" class="ingredients_input">
-                    <button type="button" class="remove_ingredients_row">X</button>
+                    <button type="button" class="btn btn-warning text-dark remove_ingredients_row">X</button>
                 </div>
+                
                 <div class="ingredients_row">
                     <input type="text" name="ingredients" class="ingredients_input">
-                    <button type="button" class="remove_ingredients_row">X</button>
+                    <button type="button" class="btn btn-warning text-dark remove_ingredients_row">X</button>
                 </div>
             </div>
-            <button type="button" id="add_ingredients_row">+</button>
+            <button type="button" class="btn btn-warning text-dark" id="add_ingredients_row">+</button>
         </div>
 
         <div class="form-control">
@@ -94,18 +96,10 @@
         // We are defining our actual row we want to input in
         const ingredientsRowHtml = `
         <div class="ingredients_row">
-      <input type="text" name="ingredients" class="ingredients_input">
-      <input type="text" name="ingredient_quantity" class="ingredient_quantity_input">
-                    <select name="ingredient_measurement" class="ingredient_measurement_select">
-                        <option value="none">--Select--</option>
-                        <option value="tsp">tsp</option>
-                        <option value="tbsp">tbsp</option>
-                        <option value="cup">cup</option>
-                        <option value="oz">oz</option>
-                        <option value="lb">lb</option>
-                    </select>
-      <button type="button" class="remove_ingredients_row">X</button>
-    </div>
+    <input type="text" name="ingredients" class="ingredients_input">
+    <button type="button" class="btn btn-warning text-dark remove_ingredients_row">X</button>
+</div>
+
 `;
         // This searches our document for the ingredients container and inserts a row on click we use insertAdjacentHTML, giving it a position.
         // The string we gave it is our html variable we defined.  Before end places the the html as the last row

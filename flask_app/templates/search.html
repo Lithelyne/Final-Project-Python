@@ -18,14 +18,13 @@
             <h1 style="color:orange">Project Cookbook</h1>
         </div>
         <div class="right">
-            <a href="/mycookbook" style="text-decoration:none;color:orange"><b>My Cookbook</b></a> | <a href="#"
+            <a href="/mycookbook" style="text-decoration:none;color:orange"><b>My Cookbook</b></a> | <a href="/testkitchen"
                 style="text-decoration:none;color:orange"><b>Test Kitchen</b></a> | <a href="/logout"
                 style="text-decoration:none;color:orange"><b>Logout</b></a>
         </div>
     </div>
 
     <div class="mb-3">
-
         <div class="row justify-content-center mb-3">
             <input type="search" name="search-bar" class="col-9" placeholder="Search recipes">
         </div>
@@ -35,6 +34,7 @@
             <button class="btn" style="width:150px;background-color:orange;margin-left:5px;"><b>Search</b></button>
         </div>
     </div>
+
     <div class="d-flex justify-content-center text-justify flex-wrap">
         <a href="/search/a" class="mx-3 mb-3">A</a>
         <a href="/search/b" class="mx-3 mb-3">B</a>
@@ -59,17 +59,21 @@
         <a href="/search/w" class="mx-3 mb-3">W</a>
         <a href="/search/y" class="mx-3 mb-3">Y</a>
     </div>
+
     <div class="container">
         <div class="row">
             {% for meal in data['meals'] %}
             <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <img class="card-img-top" src="{{ meal['strMealThumb'] }}" alt="{{ meal['strMeal'] }}">
-                    <div class="card-body" style="height: 250px; overflow: hidden; padding: 20px;">
-                        <h3 class="card-title">{{ meal['strMeal'] }}</h3>
-                        <p class="card-text">{{ meal['strInstructions'] }}</p>
+                <a href="/search/{{meal['idMeal']}}">
+                    <div class="card mb-4 box-shadow">
+                        <input type="hidden" name="idMeal" value="{{meal['idMeal']}}">
+                        <img class="card-img-top" src="{{ meal['strMealThumb'] }}" alt="{{ meal['strMeal'] }}">
+                        <div class="card-body" style="height: 250px; overflow: hidden; padding: 20px;">
+                            <h3 class="card-title">{{ meal['strMeal'] }}</h3>
+                            <p class="card-text">{{ meal['strInstructions'] }}</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             {% endfor %}
         </div>

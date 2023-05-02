@@ -32,8 +32,8 @@ class Ingredient:
     
     # UPDATE
     @classmethod
-    def update(cls,data):
-        query = "UPDATE ingredients SET text=%(text)s, description=%(description)s, instructions=%(instructions)s, under_30=%(under_30)s, date_made=%(date_made)s WHERE id = %(id)s;"
+    def update_ingredients(cls,data):
+        query = "UPDATE ingredients SET text=%(text)s WHERE id = %(id)s;"
         return connectToMySQL(DATABASE).query_db(query,data)
     
     #DELETE

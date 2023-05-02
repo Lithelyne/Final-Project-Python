@@ -23,6 +23,38 @@ def load_search(letter):
     pprint(data)
     return render_template('search.html', data=data)
 
+@app.route('/search/<int:id>')
+def load_id(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
+    data = requests.get(f"https://www.themealdb.com/api/json/v1/1/lookup.php?i={id}").json()
+    pprint(data)
+
+        #create a variable array for ingredients for us to append to
+    ingredients = []
+
+    #this loops over our data dictionary 
+    for meal in data['meals']:
+        
+        #this checks each ingredient, there are 20 possible slots so we need to check each one for an ingredient
+        for i in range(1, 21):
+            #embedded expression to evaluate dynamic number since i will be changing.
+            ingredient_key = f'strIngredient{i}'
+            measure_key = f'strMeasure{i}'
+
+            #the loop is checking each key manually, starting at 1 by putting in a literal string
+            if ingredient_key in meal:
+                ingredient = meal[ingredient_key]
+                measure = meal[measure_key]
+
+                #I needed this because otherwise it displays empty numbers in my list
+                if measure:
+                    ingredient_str = f"{ingredient}: {measure}"
+                    ingredients.append(ingredient_str)
+                else:
+                    ingredients.append(ingredient)
+    return render_template('show_api.html', data=data, ingredients=ingredients)
+
 @app.route('/testkitchen')
 def test_board():
     if 'user_id' not in session:
@@ -48,7 +80,8 @@ def create_recipe():
     pprint(request.form.getlist('ingredients'))
     for ingredient in request.form.getlist('ingredients'):
         print(ingredient)
-        Ingredient.save_ingredient(recipe_id=recipe,name=ingredient)
+        if ingredient != '':
+            Ingredient.save_ingredient(recipe_id=recipe,text=ingredient)
     return redirect('/mycookbook') #redirect to show page for this recipe
 
 @app.route('/random')
@@ -139,9 +172,17 @@ def edit(id):
 #UPDATE - Processing
 @app.route('/recipes/update/<int:id>',methods=['POST'])
 def update(id):
+    pprint(request.form)
     # if not Recipe.validate_recipe(request.form):
     #     return redirect(f"/recipes/edit/{request.form['id']}")
     Recipe.update(request.form)
+    ids=request.form.getlist('ingredient-id')
+    vals=request.form.getlist('ingredients')
+    print(ids)
+    print(vals)
+    for i in range (len(ids)):
+        data={'id':ids[i],'text':vals[i]}
+        Ingredient.update_ingredients(data)
     return redirect(f"/mycookbook/recipe/{id}")
 
 #DELETE

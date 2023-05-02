@@ -87,7 +87,7 @@ class Recipe:
         recipe = cls(results[0])
         for ingredient in results:
             ingredient_data = {
-                "id":ingredient["id"],
+                "id":ingredient["ingredients.id"],
                 "text":ingredient["text"],
                 "created_at":ingredient["created_at"],
                 "updated_at":ingredient["updated_at"],
